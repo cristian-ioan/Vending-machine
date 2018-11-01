@@ -81,28 +81,47 @@ public class VendingMachine {
     }
 
     public void decreaseCoin(int n){
-        if (n < 5){
-            for (Currency c : coinStock.keySet()) {
-                if (c.getCoinValue() == 1) {
-                    int coinQuantity = coinStock.get(c);
-                    coinStock.put(c, coinQuantity - n);
+            if (n > 10){
+                for (Currency c : coinStock.keySet()) {
+                    if (c.getCoinValue() == 10) {
+                        int coinQuantity = coinStock.get(c);
+                        if (coinQuantity > 0) {
+                            coinStock.put(c, coinQuantity - 1);
+                        } else {
+                            System.out.println("Nu mai avem monede de 10 \" + coinType + \" in VM.");
+                        }
+
+                    }
+                }
+                n = n - 10;
+            }
+            if (n > 5){
+                for (Currency c : coinStock.keySet()) {
+                    if (c.getCoinValue() == 5) {
+                        int coinQuantity = coinStock.get(c);
+                        if (coinQuantity > 0) {
+                            coinStock.put(c, coinQuantity - 1);
+                        }
+                        else {
+                            System.out.println("Nu mai avem monede de 5 \" + coinType + \" in VM.");
+                        }
+                    }
+                }
+                n = n - 5;
+            }
+            if (n < 5){
+                for (Currency c : coinStock.keySet()) {
+                    if (c.getCoinValue() == 1) {
+                        int coinQuantity = coinStock.get(c);
+                        if (coinQuantity > 0) {
+                            coinStock.put(c, coinQuantity - n);
+                            n--;
+                        } else {
+                            System.out.println("Nu mai avem monede de 1 " + coinType + " in VM.");
+                        }
+                    }
                 }
             }
-        }
-        if (n >= 5 && n < 10) {
-            int m1 = n - 5; // tipul monezii m1
-            int m2 = 1;
-            for (Currency c : coinStock.keySet()) {
-                if (c.getCoinValue() == 1) {
-                    int coinQuantity = coinStock.get(c);
-                    coinStock.put(c, coinQuantity - m1);
-                }
-                if (c.getCoinValue() == 5){
-                    int coinQuantity = coinStock.get(c);
-                    coinStock.put(c, coinQuantity - m2);
-                 }
-            }
-        }
     }
 
     public void buyProduct(){

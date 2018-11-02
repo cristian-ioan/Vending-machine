@@ -80,8 +80,9 @@ public class VendingMachine {
         return sum;
     }
 
-    public void decreaseCoin(int n){
-            if (n > 10){
+    public void giveRest(int n){
+
+            while (n > 10){
                 for (Currency c : coinStock.keySet()) {
                     if (c.getCoinValue() == 10) {
                         int coinQuantity = coinStock.get(c);
@@ -95,7 +96,7 @@ public class VendingMachine {
                 }
                 n = n - 10;
             }
-            if (n > 5){
+            while (n > 5){
                 for (Currency c : coinStock.keySet()) {
                     if (c.getCoinValue() == 5) {
                         int coinQuantity = coinStock.get(c);
@@ -109,12 +110,12 @@ public class VendingMachine {
                 }
                 n = n - 5;
             }
-            if (n < 5){
+            while (n > 0 && n < 5 ){
                 for (Currency c : coinStock.keySet()) {
                     if (c.getCoinValue() == 1) {
                         int coinQuantity = coinStock.get(c);
                         if (coinQuantity > 0) {
-                            coinStock.put(c, coinQuantity - n);
+                            coinStock.put(c, coinQuantity - 1);
                             n--;
                         } else {
                             System.out.println("Nu mai avem monede de 1 " + coinType + " in VM.");
@@ -146,7 +147,7 @@ public class VendingMachine {
                             rest = sum - price;
                             if (rest > 0){
                                 System.out.println("Restul dumneavoastra: " + rest +  " " + coinType);
-                                decreaseCoin(rest);
+                                giveRest(rest);
                             }
                         } else {
                             System.out.println("Nu sunt produse suficiente.");
